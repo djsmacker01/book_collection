@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Book - Book Collection</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>📚 Add New Book</h1>
+
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'book_list' %}">All Books</a>
+            <a href="/admin/">Admin Panel</a>
+        </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Title <span class="required">*</span></label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                <div class="alert alert-error">{{ form.title.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.author.id_for_label }}">Author <span class="required">*</span></label>
+                {{ form.author }}
+                {% if form.author.errors %}
+                <div class="alert alert-error">{{ form.author.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.isbn.id_for_label }}">ISBN <span class="required">*</span></label>
+                {{ form.isbn }}
+                <div class="help-text">{{ form.isbn.help_text }}</div>
+                {% if form.isbn.errors %}
+                <div class="alert alert-error">{{ form.isbn.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.publication_date.id_for_label }}">Publication Date <span
+                        class="required">*</span></label>
+                {{ form.publication_date }}
+                {% if form.publication_date.errors %}
+                <div class="alert alert-error">{{ form.publication_date.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.genre.id_for_label }}">Genre <span class="required">*</span></label>
+                {{ form.genre }}
+                {% if form.genre.errors %}
+                <div class="alert alert-error">{{ form.genre.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.price.id_for_label }}">Price <span class="required">*</span></label>
+                {{ form.price }}
+                <div class="help-text">{{ form.price.help_text }}</div>
+                {% if form.price.errors %}
+                <div class="alert alert-error">{{ form.price.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                <div class="alert alert-error">{{ form.description.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.cover_image.id_for_label }}">Cover Image</label>
+                {{ form.cover_image }}
+                <div class="help-text">{{ form.cover_image.help_text }}</div>
+                {% if form.cover_image.errors %}
+                <div class="alert alert-error">{{ form.cover_image.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Add Book</button>
+                <a href="{% url 'book_list' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
